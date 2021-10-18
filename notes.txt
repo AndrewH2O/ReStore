@@ -1,0 +1,132 @@
+﻿React Ecommerce Neil Cummings Working with Rider
+
+github.com/tryCatchLearn/restore
+
+https://www.udemy.com/course/learn-to-build-an-e-commerce-store-with-dotnet-react-redux/learn/lecture/28964744#overview
+
+dotnet cli
+
+Whats a web API : Http based services on top of .net
+
+client http request and server sends http response
+stateless
+cacheable 
+uniform interface
+
+/Products     	GET      get all products
+/Products/3		GET		 get product with id 3
+/Products		POST     create new product
+/Products/3		PUT		 update product with ID 3
+/Products/3		DELETE	 delete product with ID 3 
+
+
+dotnet new -l    // list all project types
+
+
+create solution file and then and webapi
+
+
+our solution is called ReStore
+
+	dotnet new sln // creates solution
+
+	dotnet new webapu -o API    // output folder
+
+
+add project to solution
+	dotnet sln add API
+
+
+
+dotnet watch run  // means don't need to  restart - how to do this in Rider
+
+
+EF
+
+modelling
+querying
+change tracking
+saving
+concurrency
+transactions
+caching
+conventions
+configurations
+migrations
+
+add EF using nuget
+<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.11">
+<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.11" />
+
+
+
+see API.csproj (show this file by selecting 'File System' in project explorer)
+
+
+So as to do migrations
+
+https://www.nuget.org/packages/dotnet-ef
+at command line
+a global tool
+dotnet tool install --global dotnet-ef --version 5.0.11
+
+
+Added the connection string in appsettings.developement.json
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",                   <<<<< change to Information so we get sql with ef
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "ConnectionStrings": {
+    "DefaultConnection": "Data source=store.db"
+  }
+}
+
+Ran this in terminal within project API folder
+R:\Code\Udemy\Neil\ReactEcommerce\ReStore\API> dotnet tool install --global dotnet-ef --version 5.0.11
+says its already installed - Yah
+
+
+update tools
+PS R:\Code\Udemy\Neil\ReactEcommerce\ReStore\API> dotnet tool update --global dotnet-ef --version 5.0.11
+
+list tools
+PS R:\Code\Udemy\Neil\ReactEcommerce\ReStore\API> dotnet tool list -g
+
+run
+dotnet ef 
+to see list of options
+
+Usage: dotnet ef [options] [command]
+
+
+Options:
+  --version        Show version information
+  -h|--help        Show help information
+  -v|--verbose     Show verbose output.
+  --no-color       Don't colorize output.
+  --prefix-output  Prefix output with level.
+
+
+Commands:
+  database    Commands to manage the database.
+  dbcontext   Commands to manage DbContext types.
+  migrations  Commands to manage migrations.
+
+
+create migration
+dotnet ef migrations add InitialCreate -o Data/Migrations    <--- first off indicae where these are
+
+
+how to apply latest code changes ef
+	dotnet ef database update
+	
+	
+ dotnet ef database drop	
+ 
+ Source control Dotnet new -l list all dotnet templates there is  a .gitignore
+ dotnet new gitignore
+ 
