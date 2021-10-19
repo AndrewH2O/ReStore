@@ -130,3 +130,11 @@ how to apply latest code changes ef
  Source control Dotnet new -l list all dotnet templates there is  a .gitignore
  dotnet new gitignore
  
+ 
+ material ui v5    import from "@mui/material" not "@material-ui/core"
+ 
+ 
+ R:\Code\Udemy\Neil\ReactEcommerce\ReStore>npx create-react-app client --template typescript --use-npm
+ 
+ the use npm ensures that even if theres another package manager is installed we use npm, also
+ using typescript
