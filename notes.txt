@@ -150,3 +150,13 @@ how to apply latest code changes ef
  need to add cors settings after routing
  
  Client should see response header access control allow origin http://localhost:3000
+ 
+ 
+ use json2ts - go to swagger endpoint browser on json output and copy into that site to convert to typescript
+ then populate Product.tsx file
+ 
+ 
+ typescript type of [] is a never array
+ 
+ 
+ project organisation - by feature
