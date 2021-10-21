@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useEffect, useState } from 'react';
 
 function App() {
     const [products, setProducts] = useState([
@@ -6,6 +6,13 @@ function App() {
         {name: 'product2', price: 200.00},
     ]);
 
+    useEffect(() => {
+        fetch('https://localhost:5001/api/products')
+            .then(response => response.json())
+            .then(data => setProducts(data))
+    },[]) // 2nd param, an empty array means the useEffect is called only once, 
+    // if there is no 2nd param then useffects run every time a re-render happens
+    
     function addProduct() {
         // use spread operator copy prevState and add new item
         // based on previous state name 

@@ -138,3 +138,15 @@ how to apply latest code changes ef
  
  the use npm ensures that even if theres another package manager is installed we use npm, also
  using typescript
+ 
+ hook useEffect used to add a side effect during app lifecycle. 
+ It takes 2 params a) callback and b) optional 2nd param
+ 
+ Cors API on port 5001 client on 3000 seen as diff domains
+ config the API so it accepts requests from the 3000 and populate the response with correct 
+ origin info data as part of the header
+ 
+ update the startup services and configure methods. The order in configuration important 
+ need to add cors settings after routing
+ 
+ Client should see response header access control allow origin http://localhost:3000
