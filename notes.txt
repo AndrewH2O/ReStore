@@ -160,3 +160,11 @@ how to apply latest code changes ef
  
  
  project organisation - by feature
+ 
+ Fragments - avoids top level div in component
+ see Catalog 
+ long way is
+     import {Fragment} from "react";
+            <Fragment> .... </Fragment>
+ shorthand
+    no import and write <> </>           
