@@ -177,4 +177,18 @@ how to apply latest code changes ef
     interface Props {
         products: Product[];
         addProduct: () => void;
-    }         
+    }   
+    
+ Styling   
+ old version doesn't play well with react in strict mode
+ material ui    
+    https://material-ui.com/     
+    npm install @material-ui/core
+ new version    
+    mui.com     (https://mui.com/getting-started/installation/)   
+    npm install @mui/material @emotion/react @emotion/styled
+    
+    add font
+    add svg material icons
+    
+    customisation theme typography https://mui.com/customization/typography/
