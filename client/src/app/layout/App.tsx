@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import {useEffect, useState } from 'react';
-import Catalog from '../../features/Catalog/catalog';
+import Catalog from '../../features/Catalog/Catalog';
 import { Product } from '../models/product';
 
 function App() {
