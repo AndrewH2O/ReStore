@@ -167,4 +167,14 @@ how to apply latest code changes ef
      import {Fragment} from "react";
             <Fragment> .... </Fragment>
  shorthand
-    no import and write <> </>           
+    no import and write <> </>     
+    
+ Simplify avoid using props. we destructure
+    from props: Props
+    to {products, addProduct} : Props
+    
+    where Props defined as 
+    interface Props {
+        products: Product[];
+        addProduct: () => void;
+    }         
