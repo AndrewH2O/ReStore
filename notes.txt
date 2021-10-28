@@ -197,3 +197,6 @@ Reset browser styles Add to app.tsx <CssBaseline/>
 Added material UI card based on media one https://mui.com/components/cards/   
 The sx prop in material ui shortcut for defining custom styles https://mui.com/system/the-sx-prop/
 this is used to add normal css styles e.g. see ProductCard
+
+material UI theme > theming  https://mui.com/customization/theming/
+toggle button see app.tsx and header.tsx
