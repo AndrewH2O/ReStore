@@ -1,9 +1,31 @@
 ﻿import { Typography }  from "@mui/material";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { Product } from "../../app/models/product";
+
 
 export default function ProductDetails() {
+    const {id} = useParams<{id: string}>();
+    
+    // init value is null and type is null rather than undefined
+    const [product,setProduct] = useState<Product|null>(null);
+    const [loading,setLoading] = useState(true);
+    
+    useEffect(() => {
+        axios.get(`https://localhost:5001/api/products/${id}`)
+            .then(response => setProduct(response.data))
+            .catch(error=>console.log(error))
+            .finally(()=>setLoading(false))
+    },[id])      // dependency id as we sprecify a value then if that changes useEffect triggered again
+    
+    if(loading) return <h3>Loading....</h3>
+    
+    if(!product) return <h3>Product not found</h3>
+    
     return (
         <Typography variant='h2'>
-            Product Details Page
+            {product.name}
         </Typography>
     )
 }

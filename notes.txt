@@ -226,12 +226,26 @@ http://localhost:3000/about
 need 'exact' as the default way path matching happens is '/' matches home and everything else
 so we get both homepage and any other components. With exact only '/' matches
 
-header.tsx use react-router NavLink
+header.tsx use react-router 
+NavLink - applies an active class - we use this on header
+Link - no active class - we use this ProductCard Button 
+
+Passing parameters in the path (see Product Card) 
+component={Link} to={`/catalog/${product.id}` 
+<Button component={Link} to={`/catalog/${product.id}`} size="small">View</Button> 
+
+links to ProductsDetails, access the param from there
+hook - useParams
+const {id} = useParams<{id: string}>();
+
+our backend api /localhost:5000/api/products/2 
+ 
 
 Axios - replace Fetch
 ---------------------
-Http client intercept request on way out and response on way back
 
+npm install axios (it comes with type definitions included)
+Http client intercept request on way out and response on way back
 
 Material UI 
 see themes here https://mui.com/customization/default-theme/  (expand all)
