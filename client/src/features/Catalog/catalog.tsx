@@ -1,18 +1,23 @@
-﻿import {Button } from "@mui/material";
-import { Product } from "../../app/models/product";
+﻿import { Product } from "../../app/models/product";
 import ProductList from "./ProductList";
-
-interface Props {
-    products: Product[];
-    addProduct: () => void;
-}
+import {useEffect, useState} from "react";
 
 // instead of props destructure Props into {products, addProduct}
-export default function Catalog({products, addProduct}: Props) {
+export default function Catalog() {
+    const [products, setProducts] = useState<Product[]>([]);
+
+    useEffect(() => {
+        fetch('https://localhost:5001/api/products')
+            .then(response => response.json())
+            .then(data => setProducts(data))
+    }, []) // 2nd param, an empty array means the useEffect is called only once, 
+    // if there is no 2nd param then useffects run every time a re-render happens
+
+    
+    
     return (//Fragment shorthand <> 
         <>
             <ProductList products={products}/>
-            <Button variant='contained' onClick={addProduct}>Add product</Button>
         </>
     )
 }
