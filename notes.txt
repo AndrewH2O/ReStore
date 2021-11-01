@@ -226,6 +226,18 @@ http://localhost:3000/about
 need 'exact' as the default way path matching happens is '/' matches home and everything else
 so we get both homepage and any other components. With exact only '/' matches
 
+header.tsx use react-router NavLink
+
 Axios - replace Fetch
 ---------------------
 Http client intercept request on way out and response on way back
+
+
+Material UI 
+see themes here https://mui.com/customization/default-theme/  (expand all)
+sx styling hover 
+'&:hover':{color:'secondary.main'} or better color
+'&:hover':{color:'grey.500'},
+see Header.tsx
+select a class for active link 
+'&.active':{color: 'text.secondary'}
