@@ -200,3 +200,32 @@ this is used to add normal css styles e.g. see ProductCard
 
 material UI theme > theming  https://mui.com/customization/theming/
 toggle button see app.tsx and header.tsx
+
+
+React Router
+------------
+Without router simple option return page based on series of if statements
+Same page but swaps the components
+React Router - web version  npm install react-router-dom
+install type definitions
+npm install react-router-dom @types/react-router-dom
+www.reactrouter.com/web/api
+<BrowserRouter> in index
+
+in app
+        <Route exact path='/' component={HomePage}/>
+        <Route exact path='/catalog' component={Catalog}/>
+        <Route path='/catalog/:id' component={ProductDetails}/>
+        <Route path='/about' component={AboutPage}/>
+        <Route path='/contact' component={ContactPage}/>
+
+http://localhost:3000                     <-- home page
+http://localhost:3000/catalog             
+http://localhost:3000/about
+
+need 'exact' as the default way path matching happens is '/' matches home and everything else
+so we get both homepage and any other components. With exact only '/' matches
+
+Axios - replace Fetch
+---------------------
+Http client intercept request on way out and response on way back
