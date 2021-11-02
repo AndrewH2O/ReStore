@@ -255,3 +255,23 @@ sx styling hover
 see Header.tsx
 select a class for active link 
 '&.active':{color: 'text.secondary'}
+
+
+Error Handling
+--------------
+Http Responses
+200 range     OK
+300           Redirection
+400           Client error
+500           Server Error  
+both client and server side
+
+buggyController used to test errors 
+swagger
+https://localhost:5001/swagger/index.html
+
+replace stand developer exception page with our own
+https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-5.0
+ordering of middleware is crucial - passed down the tree and back up again see diag at Middleware order
+
+define own exception handling so as to standardise the reponse title, status, detail that show the exception
