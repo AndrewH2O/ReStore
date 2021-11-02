@@ -275,3 +275,5 @@ https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspne
 ordering of middleware is crucial - passed down the tree and back up again see diag at Middleware order
 
 define own exception handling so as to standardise the reponse title, status, detail that show the exception
+
+Client side centralise use of axios
