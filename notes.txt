@@ -281,3 +281,17 @@ Client side centralise use of axios
 we use the about page to test errors
 
 In axios use error.response instead of error to get back more info (see ProductDetails)
+
+axios interceptor  (see agent.tsx)
+  - onFullfilled - any response in 200 range
+  - onRejected - anything else (400 or 500)
+  always return the error from the interceptor as we cannot catch it in the interceptor so it 
+  allows us to see the errors but we must pass it back out of the interceptor so errors can be
+  caught in their respective components
+  
+  see catch in about page
+     <Button variant='contained' onClick={()=>agent.TestErrors.get404Error()
+        .catch(error => console.log(error))}>Test 404 Error</Button>
+
+    note as error response was sent from interceptor in product details catch error instead
+    of error.response
