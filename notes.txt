@@ -295,3 +295,11 @@ axios interceptor  (see agent.tsx)
 
     note as error response was sent from interceptor in product details catch error instead
     of error.response
+    
+
+Add react toastify    npm install react-toastify
+Note wrap components in App.tsx
+add switch statement in agent.tsx
+Typescript note - use of ! after response overrides type safety for destructuring
+response
+        const {data,status} = error.response!;
