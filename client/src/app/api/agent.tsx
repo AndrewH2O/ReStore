@@ -17,8 +17,18 @@ const Catalog = {
     details: (id:number)=>requests.get(`products/${id}`)
 }
 
+// see buggyController to see routes defined
+const TestErrors = {
+    get400Error:()=>requests.get('buggy/bad-request'),
+    get401Error:()=>requests.get('buggy/unauthorised'),
+    get404Error:()=>requests.get('buggy/not-found'),
+    get500Error:()=>requests.get('buggy/server-error'),
+    getValidationError:()=>requests.get('buggy/validation-error')
+}
+
 const agent = {
-    Catalog
+    Catalog,
+    TestErrors
 }
 
 export default agent;

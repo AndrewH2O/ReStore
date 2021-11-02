@@ -277,3 +277,7 @@ ordering of middleware is crucial - passed down the tree and back up again see d
 define own exception handling so as to standardise the reponse title, status, detail that show the exception
 
 Client side centralise use of axios
+
+we use the about page to test errors
+
+In axios use error.response instead of error to get back more info (see ProductDetails)
