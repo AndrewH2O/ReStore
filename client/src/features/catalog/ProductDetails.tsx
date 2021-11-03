@@ -9,6 +9,7 @@ import { Product } from "../../app/models/product";
 
 
 export default function ProductDetails() {
+    //debugger;
     const {id} = useParams<{id: string}>();
     
     // init value is null and type is null rather than undefined

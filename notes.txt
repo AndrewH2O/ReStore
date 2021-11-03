@@ -393,3 +393,16 @@ useEffect(() => {
 if(loading) return <LoadingComponent message='loading products...'/>    
 
 loadingComponent uses material UI to draw a spinner
+
+
+Debug dotnet attach to process API.exe set breakpoint. Avoids stopping app and running in debug mode
+Rider Run>Attach to process
+Debug React App
+Debug in chrome  type this in our code     debugger;  In chrome stop on this line e.g ProductDetails line 12
+In Rider 
+Application must be running so in terminal npm start
+Then we can attach debugger opens another version in chrome
+edit config add Javascript Debug, name it react add url http://localhost:3000
+select config from drop down list and press Debug
+Add breakpoints in client code in Rider as normal
+However console logs are better
