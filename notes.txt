@@ -303,3 +303,6 @@ add switch statement in agent.tsx
 Typescript note - use of ! after response overrides type safety for destructuring
 response
         const {data,status} = error.response!;
+        
+Validation errors in client -pull out array of errors (as populated by the modelState on the server)
+        

@@ -12,9 +12,20 @@ axios.interceptors.response.use(response => {
 }, (error: AxiosError) => {
     // destructure some props from error response
     // note ! after response overrides type safety for data and status 
-    const {data,status} = error.response!;
+    const {data, status} = error.response!;
     switch (status){
         case 400:
+            //validation error can also be a 400
+            // shape the errors so that pull out string error msg and add them to an array
+            if(data.errors){
+                const modelStateErrors: string[]=[];
+                for(const key in data.errors){
+                    if(data.errors[key]) {
+                        modelStateErrors.push(data.errors[key]);
+                    }
+                }
+                throw modelStateErrors.flat();
+            }
             toast.error(data.title);
             break;
         case 401:
