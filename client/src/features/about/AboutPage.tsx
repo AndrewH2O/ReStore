@@ -17,7 +17,7 @@ export default function AboutPage() {
 
     function getValidationError() {
         agent.TestErrors.getValidationError()
-err            .then(() => console.log('should not see this'))
+            .then(() => console.log('should not see this'))
             .catch(error => setValidationErrors(error));
     }
 
