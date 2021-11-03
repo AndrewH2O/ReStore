@@ -22,6 +22,7 @@ export default function AboutPage() {
     }
 
     return (
+        
         <Container>
             <Typography gutterBottom variant='h2'>
                 Errors for testing purposes

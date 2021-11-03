@@ -305,4 +305,49 @@ response
         const {data,status} = error.response!;
         
 Validation errors in client -pull out array of errors (as populated by the modelState on the server)
-        
+
+Handling and Rerouting server errors
+------------------------------------- 
+Handling server errors - (as raised by About page server error button) we want to route the 
+handling from AboutPage to ServerError.tsx
+we use react router for this
+AboutPage is not part of react  
+its inside a route (as seen in react dev tools), it has access to history props and we can 
+call push on that this will push a new object onto history state and cause react to load
+We need to redirect user from agent.tsx but need access to the route
+Looking at 
+reactrouter.com  https://reactrouter.com/web/api/Router
+currently using BrowserRouter that has access to history object but there is a lower level
+router Router which can use to create a history object and reuse this elsewhere
+Add history route url to app.tsx and use it in agents.tsx
+history.push('/server-error')
+Look at React dev tools find ServerError in the object tree and the props available are 
+history location match, location has a state and a pathname we can use 
+Update agent.tsx with 
+case 500:
+            // redirect 
+            //history.push('/server-error')
+            history.push({
+                pathname:'/server-error',
+                state:{error: data}
+            })
+            
+look again at the react dev tools to see location> state>  error has detail, status and title
+all this comes from our ExceptionMiddleware.cs we defined on the server i.e.:
+    var response = new ProblemDetails
+                    {
+                        Status = 500,
+                        Detail = _env.IsDevelopment() ? ex.StackTrace?.ToString() : null,
+                        Title = ex.Message
+                    };
+    
+In ServerError.tsx we can make use of the above history and location info on the route using hooks
+    const history = useHistory();
+    // location hook that react provides 
+    const {state} = useLocation<any>();
+
+from import {useHistory, useLocation} from "react-router-dom";
+
+our exception is 
+at API.Controllers.BuggyController.GetServerError() in R:\Code\Udemy\Neil\ReactEcommerce\ReStore\API\Controllers\BuggyController.cs:line 40
++ other detail of stack trace
