@@ -2,13 +2,18 @@ import axios, {AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { history } from "../.."
 
+// simulate a delay, js async using a promise
+const sleep =() => new Promise(resolve => setTimeout(resolve, 500));
+
+
 axios.defaults.baseURL = 'https://localhost:5001/api/';
 
 // we get response data helper
 const responseBody = (response: AxiosResponse) => response.data;
 
 
-axios.interceptors.response.use(response => {
+axios.interceptors.response.use(async response => {
+    await sleep();
     return response;
 }, (error: AxiosError) => {
     // destructure some props from error response

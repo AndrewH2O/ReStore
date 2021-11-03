@@ -364,3 +364,32 @@ avoids Not found being displayed everytime
 Also same behaviour for product Not found e.g. /catalog/222
 if(!product) return <NotFound/>
 added to product details
+
+Simulate a delay when working with API
+---------------------------------------
+Use material UI added async code to  agent.tsx with js promise and also to axios async await
+
+// simulate a delay, js async using a promise
+const sleep =() => new Promise(resolve => setTimeout(resolve, 500));
+
+axios.interceptors.response.use(async response => {
+    await sleep();
+    return response;
+}, 
+
+In Catalog and product Details we use a loading flag that is initially set to true
+and a finally block within the useEffect to turn off loading flag
+
+const [loading, setLoading] = useState(true);
+useEffect(() => {
+        // we have centralised axios withinapp api agent
+        agent.Catalog.list()
+            .then(products => setProducts(products))
+            .catch(error => console.log(error))
+            .finally(() => setLoading(false))
+    }, []) 
+    
+// show loading
+if(loading) return <LoadingComponent message='loading products...'/>    
+
+loadingComponent uses material UI to draw a spinner

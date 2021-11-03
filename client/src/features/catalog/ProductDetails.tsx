@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import agent from "../../app/api/agent";
 import NotFound from "../../app/errors/NotFound";
+import LoadingComponent from "../../app/layout/LoadingComponent";
 import { Product } from "../../app/models/product";
 
 
@@ -21,7 +22,7 @@ export default function ProductDetails() {
             .finally(()=>setLoading(false))
     },[id])      // dependency id as we sprecify a value then if that changes useEffect triggered again
     
-    if(loading) return <h3>Loading....</h3>
+    if(loading) return <LoadingComponent message='Loading product...'/>
     
     if(!product) return <NotFound/>
     
