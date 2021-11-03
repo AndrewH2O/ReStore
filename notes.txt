@@ -351,3 +351,16 @@ from import {useHistory, useLocation} from "react-router-dom";
 our exception is 
 at API.Controllers.BuggyController.GetServerError() in R:\Code\Udemy\Neil\ReactEcommerce\ReStore\API\Controllers\BuggyController.cs:line 40
 + other detail of stack trace
+
+Not found Error
+---------------
+Check this by clicking on a link that goes no where e.g. Login
+Added separate NotFound tsx file
+and added default route <Route component={NotFound}/>
+Switch in react router - 'not found' default fall through if no other route matches
+by adding switch we prevent this and make every route exclusive,
+avoids Not found being displayed everytime
+
+Also same behaviour for product Not found e.g. /catalog/222
+if(!product) return <NotFound/>
+added to product details
