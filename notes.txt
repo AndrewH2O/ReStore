@@ -4,6 +4,9 @@ github.com/tryCatchLearn/restore
 
 https://www.udemy.com/course/learn-to-build-an-e-commerce-store-with-dotnet-react-redux/learn/lecture/28964744#overview
 
+API Server first build
+======================
+
 dotnet cli
 
 Whats a web API : Http based services on top of .net
@@ -42,6 +45,7 @@ dotnet watch run  // means don't need to  restart - how to do this in Rider
 
 
 EF
+--
 
 modelling
 querying
@@ -131,6 +135,8 @@ how to apply latest code changes ef
  dotnet new gitignore
  
  
+ React Client first build
+ ========================
  material ui v5    import from "@mui/material" not "@material-ui/core"
  
  
@@ -203,7 +209,8 @@ toggle button see app.tsx and header.tsx
 
 
 React Router
-------------
+============
+
 Without router simple option return page based on series of if statements
 Same page but swaps the components
 React Router - web version  npm install react-router-dom
@@ -258,7 +265,8 @@ select a class for active link
 
 
 Error Handling
---------------
+==============
+
 Http Responses
 200 range     OK
 300           Redirection
@@ -406,3 +414,60 @@ edit config add Javascript Debug, name it react add url http://localhost:3000
 select config from drop down list and press Debug
 Add breakpoints in client code in Rider as normal
 However console logs are better
+
+
+Shopping Cart
+=============
+
+EF relationships, shaping data React context
+Store basket on the server (track events in the basket if we want to - not doing that here)
+Basket--Items One to many
+BaskItem --- Product one to one 
+React Context - 
+currently with props passing state to children but context doesn't restrain us to parent child.
+
+EF navigation props in entity classes
+
+update StoreContext add DbSet
+Did not add BasketItem as we are not going to use that directly only via Basket
+
+dotnet ef migrations add BasketEntityAdded
+
+Issues with migration as its possible to delete a basket and not have that deletion
+cascade to basketItems as onDelete: ReferentialAction.Restrict. We need cascade
+
+BasketItem Table
+                table.ForeignKey(
+                        name: "FK_BasketItem_Baskets_BasketId",
+                        column: x => x.BasketId,
+                        principalTable: "Baskets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                        
+        Also BasketId can be null
+        BasketId = table.Column<int>(type: "INTEGER", nullable: true)
+        
+        Name is BasketItem we want to pluralize
+        
+remove migrations
+
+    dotnet ef migrations remove
+
+we can specify convention based annotations to overcome these issues
+Fully define relationships on both ends of relationships
+eg our basket has List of BasketItems and BasketItems defines BasketId and Basket properties
+so both Basket and BasketItem need navigation property - will tell ef we want to cascade deletes
+
+    dotnet ef migrations add BasketEntityAdded
+
+Now in migration BasketItems
+    BasketId = table.Column<int>(type: "INTEGER", nullable: false)
+    
+    table.ForeignKey(
+            name: "FK_BasketItems_Baskets_BasketId",
+            column: x => x.BasketId,
+            principalTable: "Baskets",
+            principalColumn: "Id",
+            onDelete: ReferentialAction.Cascade); <---------- This is good
+            
+To Apply migration just start app
