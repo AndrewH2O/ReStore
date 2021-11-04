@@ -487,6 +487,8 @@ we also create a cookie - mark it essential so users refusing cookies know the s
 Also don't mark it http only as that excludes it being used in js
 Also add cors header so as to receive cookie in client
 add AllowCredentials() to useCors in startup
+Also in client need withCredentials see changes to agent.tsx
+    axios.defaults.withCredentials = true;
 
 Adding Items
 ------------
@@ -513,3 +515,27 @@ we need to send back new object or its location in addition to 201
  
 location: https://localhost:5001/api/Basket <-- as we have the item in the basket
 
+Client - 
+------
+update ProductCard 
+
+<LoadingButton 
+            loading={loading} 
+            onClick={()=>handleAddItem(product.id)} 
+            size="small">Add to cart</LoadingButton>
+            
+            
+function handleAddItem(productId:number){ // quantity has a default value of 1 and is optional
+      setLoading(true);
+      console.log("adding item.... ",productId);
+      agent.Basket.addItem(productId) 
+          .catch(error => console.log(error))
+          .finally(()=>setLoading(false));
+  }
+  
+  
+Couldn't get the cookie to work and changed the url to non https and commented out //app.UseHttpsRedirection();
+base url is now http://localhost:5000/api/
+Everything works
+              
+clicking the Add to cart produces a cookie now or reuses the existing one.              
