@@ -471,3 +471,32 @@ Now in migration BasketItems
             onDelete: ReferentialAction.Cascade); <---------- This is good
             
 To Apply migration just start app
+
+BasketController
+var basket = await _context.Baskets
+                .Include(i=>i.Items)   <---- Basket has basketItems
+                .ThenInclude(p=>p.Product) <--- as BasketItems have Products
+                .FirstOrDefaultAsync(b => b.BuyerId == Request.Cookies["buyerId"]);
+                
+Add to Basket 
+
+
+Cookie
+------
+we also create a cookie - mark it essential so users refusing cookies know the site won't work
+Also don't mark it http only as that excludes it being used in js
+
+Use Debugger to walk through the AddItemToBasket method 
+use https://localhost:5001/swagger/index.html to run methods
+not our ids for basket and basketItem are only populated once we save data into the db.
+The cookie is added - check this under the Application tab in chrome and see it holds buyerId
+Confirmed in db that records have been created
+
+Currently after adding the item to the basket if we try to call a get request we get a server error
+500 possible object cycle was detected - thrown by Json Serializer because
+in basket > basketItem (but this also has a navigational ref to basket which in turn have baskItems etc)
+Solution is to shape the data. Use DTOs
+
+Add DTOs and tested in swagger using Id 2 and quantity 1 post then Get, 
+then repeat post to add more quantity to same Id
+                 
