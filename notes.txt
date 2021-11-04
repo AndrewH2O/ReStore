@@ -485,7 +485,11 @@ Cookie
 ------
 we also create a cookie - mark it essential so users refusing cookies know the site won't work
 Also don't mark it http only as that excludes it being used in js
+Also add cors header so as to receive cookie in client
+add AllowCredentials() to useCors in startup
 
+Adding Items
+------------
 Use Debugger to walk through the AddItemToBasket method 
 use https://localhost:5001/swagger/index.html to run methods
 not our ids for basket and basketItem are only populated once we save data into the db.
@@ -499,4 +503,13 @@ Solution is to shape the data. Use DTOs
 
 Add DTOs and tested in swagger using Id 2 and quantity 1 post then Get, 
 then repeat post to add more quantity to same Id
-                 
+
+CreatedAtRoute
+--------------
+Post, CreatedAtRoute() method
+return CreatedAtRoute("GetBasket",MapBasketToDto(basket) ); // route name, will add location to header   
+"GetBasket" is the route that used to get the location url
+we need to send back new object or its location in addition to 201
+ 
+location: https://localhost:5001/api/Basket <-- as we have the item in the basket
+

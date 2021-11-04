@@ -19,7 +19,7 @@ namespace API.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet(Name = "GetBasket")]
         public async Task<ActionResult<BasketDto>> GetBasket()
         {
             var basket = await RetrieveBasket();
@@ -27,27 +27,13 @@ namespace API.Controllers
             if (basket == null) return NotFound();
             // solve cyclical issue we had in JSON serialiser
             // where basket had a navigation property BasketItem which had a basket etc
-            return new BasketDto
-            {
-                Id = basket.Id,
-                BuyerId = basket.BuyerId,
-                Items = basket.Items.Select(item => new BasketItemDto()
-                {
-                    ProductId = item.ProductId,
-                    Name = item.Product.Name,
-                    Price = item.Product.Price,
-                    PictureUrl = item.Product.PictureUrl,
-                    Brand = item.Product.Brand,
-                    Quantity = item.Quantity,
-                    Type = item.Product.Type
-                }).ToList()
-            };
+            return MapBasketToDto(basket);
         }
 
         // value from query string
         // api/basket?productId=3&quantity=2
         [HttpPost]
-        public async Task<ActionResult> AddItemToBasket(int productId, int quantity)
+        public async Task<ActionResult<BasketDto>> AddItemToBasket(int productId, int quantity)
         {
             // get basket or create basket
             var basket = await RetrieveBasket();
@@ -62,7 +48,7 @@ namespace API.Controllers
             
             // save changes
             var result = await _context.SaveChangesAsync() > 0; // if true then we have something saved
-            if (result) return StatusCode(201); // created at source
+            if (result) return CreatedAtRoute("GetBasket",MapBasketToDto(basket) ); // route name, will add location to header
 
             return BadRequest(new ProblemDetails
             {
@@ -115,6 +101,25 @@ namespace API.Controllers
                 .ThenInclude(p => p.Product)
                 .FirstOrDefaultAsync(b => b.BuyerId == Request.Cookies["buyerId"]);
             return basket;
+        }
+        
+        private static BasketDto MapBasketToDto(Basket basket)
+        {
+            return new BasketDto
+            {
+                Id = basket.Id,
+                BuyerId = basket.BuyerId,
+                Items = basket.Items.Select(item => new BasketItemDto()
+                {
+                    ProductId = item.ProductId,
+                    Name = item.Product.Name,
+                    Price = item.Product.Price,
+                    PictureUrl = item.Product.PictureUrl,
+                    Brand = item.Product.Brand,
+                    Quantity = item.Quantity,
+                    Type = item.Product.Type
+                }).ToList()
+            };
         }
     }
 }
