@@ -490,6 +490,15 @@ add AllowCredentials() to useCors in startup
 Also in client need withCredentials see changes to agent.tsx
     axios.defaults.withCredentials = true;
 
+In BasketController CreateBasket
+var cookieOptions = new CookieOptions
+            {
+                IsEssential = true,
+                Expires = DateTime.Now.AddDays(30),
+            };
+            // add cookie to response
+            Response.Cookies.Append("buyerId", buyerId, cookieOptions);
+
 Adding Items
 ------------
 Use Debugger to walk through the AddItemToBasket method 
@@ -538,4 +547,48 @@ Couldn't get the cookie to work and changed the url to non https and commented o
 base url is now http://localhost:5000/api/
 Everything works
               
-clicking the Add to cart produces a cookie now or reuses the existing one.              
+clicking the Add to cart produces a cookie now or reuses the existing one.  
+
+Display Basket
+--------------
+This is what we get from backend get basket
+http://localhost:5000/swagger/index.html
+{
+  "id": 19,
+  "buyerId": "1ddb9af2-cf37-4151-93e1-53d4b23ff660",
+  "items": [
+    {
+      "productId": 1,
+      "name": "Angular Speedster Board 2000",
+      "price": 20000,
+      "pictureUrl": "/images/products/sb-ang1.png",
+      "brand": "Angular",
+      "type": "Boards",
+      "quantity": 1
+    }
+  ]
+}        
+
+json2ts.com create interface paste above in generates
+
+ declare module namespace {
+ 
+     export interface Item {
+         productId: number;
+         name: string;
+         price: number;
+         pictureUrl: string;
+         brand: string;
+         type: string;
+         quantity: number;
+     }
+ 
+     export interface RootObject {
+         id: number;
+         buyerId: string;
+         items: Item[];
+     }
+ 
+ }
+ 
+ create basket.tsx on client  

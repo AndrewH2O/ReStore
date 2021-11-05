@@ -1,0 +1,67 @@
+Preflight
+=========
+Request URL: https://localhost:5001/api/basket?productId=1&quantity=1
+Request Method: OPTIONS
+Status Code: 204 
+Remote Address: [::1]:5001
+Referrer Policy: strict-origin-when-cross-origin
+access-control-allow-credentials: true
+access-control-allow-headers: content-type
+access-control-allow-methods: POST
+access-control-allow-origin: http://localhost:3000
+date: Fri, 05 Nov 2021 08:20:44 GMT
+server: Kestrel
+:authority: localhost:5001
+:method: OPTIONS
+:path: /api/basket?productId=1&quantity=1
+:scheme: https
+accept: */*
+accept-encoding: gzip, deflate, br
+accept-language: en-US,en;q=0.9
+access-control-request-headers: content-type
+access-control-request-method: POST
+origin: http://localhost:3000
+referer: http://localhost:3000/
+sec-fetch-dest: empty
+sec-fetch-mode: cors
+sec-fetch-site: cross-site
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36
+productId: 1
+quantity: 1
+
+Response
+========
+quantity: 1quest URL: https://localhost:5001/api/basket?productId=1&quantity=1
+Request Method: POST
+Status Code: 201 
+Remote Address: [::1]:5001
+Referrer Policy: strict-origin-when-cross-origin
+access-control-allow-credentials: true
+access-control-allow-origin: http://localhost:3000
+content-type: application/json; charset=utf-8
+date: Fri, 05 Nov 2021 08:20:45 GMT
+location: https://localhost:5001/api/Basket
+server: Kestrel
+set-cookie: buyerId=b9e878f9-d3e9-498a-92d8-3bcfdbe0ba9c; expires=Sun, 05 Dec 2021 08:20:45 GMT; path=/
+:authority: localhost:5001
+:method: POST
+:path: /api/basket?productId=1&quantity=1
+:scheme: https
+accept: application/json, text/plain, */*
+accept-encoding: gzip, deflate, br
+accept-language: en-US,en;q=0.9
+content-length: 2
+content-type: application/json
+origin: http://localhost:3000
+referer: http://localhost:3000/
+sec-ch-ua: "Google Chrome";v="95", "Chromium";v="95", ";Not A Brand";v="99"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+sec-fetch-dest: empty
+sec-fetch-mode: cors
+sec-fetch-site: cross-site
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36
+productId: 1
+quantity: 1
+{}
+No properties
