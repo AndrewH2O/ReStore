@@ -596,5 +596,29 @@ json2ts.com create interface paste above in generates
  
  ReactContext
  ------------
- updating basket item count in header basket icon
-      
+ updating basket item count in header basket icon in StoreContext.tsx
+ Added a custom hook useStoreContext
+    // custom react hook to work with storeContext
+    export function useStoreContext() {
+        const context = useContext(StoreContext);
+        
+        if(context == undefined){
+            throw Error('oops we do not seem to be inside the provider');
+        }
+        
+        return context;
+    }
+
+ Added store provider to make it easier to work with the basket
+ Store context returns 
+    <StoreContext.Provider value={{basket, setBasket, removeItem}}>
+        {children}
+    </StoreContext.Provider>
+                               
+ We use it by wrapping our elements in App   
+ 
+ Use StoreProvide in Index.tsx highest level                                 
+ wrap the app
+    <StoreProvider>
+        <App />
+    </StoreProvider>
