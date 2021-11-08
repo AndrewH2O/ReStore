@@ -622,3 +622,12 @@ json2ts.com create interface paste above in generates
     <StoreProvider>
         <App />
     </StoreProvider>
+    
+ Use our StoreContext fetching the basket on app start
+ Check in the client - have we got a basket? if we have a cookie with basketId then there
+ should be a basket on the server.   
+ 
+ Added util regex find cookie via the window document
+ 
+ Check in chrom dev tools when loading react components that StoreProvider is in the hierachy
+ Go to home page and check if we have the basket contents

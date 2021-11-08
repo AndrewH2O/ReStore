@@ -1,5 +1,5 @@
 import {Container, createTheme, CssBaseline, ThemeProvider} from '@mui/material';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Route, Switch} from 'react-router-dom';
 import {ToastContainer} from 'react-toastify';
 import AboutPage from '../../features/about/AboutPage';
@@ -12,8 +12,26 @@ import 'react-toastify/dist/ReactToastify.css';
 import ServerError from '../errors/ServerError';
 import NotFound from '../errors/NotFound';
 import BasketPage from '../../features/basket/BasketPage';
+import { useStoreContext } from '../context/StoreContext';
+import { getCookie } from '../util/util';
+import agent from '../api/agent';
+import LoadingComponent from './LoadingComponent';
 
 function App() {
+    // destructure to left side
+    const {setBasket} = useStoreContext();
+    const [loading,setLoading] = useState(true);
+    
+    useEffect(()=>{
+        const buyerId = getCookie('buyerId');
+        if(buyerId) {
+            agent.Basket.get()
+                .then(basket => setBasket(basket))
+                .catch(error => console.log(error))
+                .finally(() => setLoading(false))
+        }
+    },[setBasket]) //< 2nd param do we need any dependencies - look in react terminal warns about missing setBasket
+    
     const [darkMode, setDarkMode] = useState(false)
     const palleteType = darkMode ? 'dark' : 'light'
 
@@ -29,6 +47,8 @@ function App() {
     function handleThemeChange() {
         setDarkMode(!darkMode);
     }
+    
+    if(loading) return <LoadingComponent message='Initialising app...'/>
 
     // 'not found' below is default fall through if no other route matches
     // by adding switch we prevent this and make every route exclusive,

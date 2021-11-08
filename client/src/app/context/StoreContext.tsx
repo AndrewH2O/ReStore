@@ -10,18 +10,25 @@ interface StoreContextValue {
 }
 
 // default value is undefined
+
+
 export const StoreContext = createContext<StoreContextValue | undefined>(undefined);
 
 // custom react hook to work with storeContext
+
+/**
+ * provides basket, setBasket, removeItem
+ */
 export function useStoreContext() {
     const context = useContext(StoreContext);
     
-    if(context == undefined){
+    if(context === undefined){
         throw Error('oops we do not seem to be inside the provider');
     }
     
     return context;
 }
+
 
 export function StoreProvider({children}:PropsWithChildren<any>) {
     // create store and methods
@@ -46,6 +53,7 @@ export function StoreProvider({children}:PropsWithChildren<any>) {
             })
         }
     }
+    
     
     return (
         <StoreContext.Provider value={{basket, setBasket, removeItem}}>
