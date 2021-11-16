@@ -10,7 +10,7 @@ export default function Catalog() {
     const [loading, setLoading] = useState(true);
     
     useEffect(() => {
-        // we have centralised axios withinapp api agent
+        // we have centralised axios within app api agent
         agent.Catalog.list()
             .then(products => setProducts(products))
             .catch(error => console.log(error))

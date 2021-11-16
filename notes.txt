@@ -631,3 +631,14 @@ json2ts.com create interface paste above in generates
  
  Check in chrom dev tools when loading react components that StoreProvider is in the hierachy
  Go to home page and check if we have the basket contents
+ 
+ 
+ Updated header with basket item count.
+ The basket data now comes from the StoreContext so in basket page we don't need to 
+ fetch it each time if theres a cookie. Update the basket item count and wire up the 
+ ProductCard add item to update the basket, as up to this point we have just made
+ a post request to update the basket on the server not the client so we only get 
+ an updated basket upon browser refresh.
+ 
+ Check empty basket - turn off loading (test this in incognito window in browser)
+ in App.tsx
