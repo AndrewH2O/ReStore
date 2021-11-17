@@ -642,3 +642,5 @@ json2ts.com create interface paste above in generates
  
  Check empty basket - turn off loading (test this in incognito window in browser)
  in App.tsx
+ 
+ Implemented Add Remove Delete buttons and operations
