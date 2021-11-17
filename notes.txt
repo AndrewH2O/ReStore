@@ -647,3 +647,26 @@ json2ts.com create interface paste above in generates
  
  // remember ?? trick to handle undefined values as left most argument will be 0
  const subtotal = basket?.items.reduce((sum, item)=> sum + (item.price * item.quantity),0) ?? 0; <-- if undefined then right arg
+ 
+ Update product detail section to add / remove item in the basket
+ 
+ Update product detail
+ UseEffect watch out for dependencies - look in console for issues e.g.
+  Line 32:7:   React Hook useEffect has a missing dependency: 'item'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  useEffect(() => {
+          if(item) setQuantity(item.quantity);
+          ....
+          
+           },[id]) // dependency so far is id
+           
+           change to
+           },[id, item]) 
+           
+           
+  TextField is just an html element and react knows nothing about it (as an Uncontrolled component) as it cannot see the changes so we
+  need to turn it into a controlled component  
+  
+  product?.id! <-- exclamation overrides typescript type safety re possible undefined
+  
+  add logic to prevent updating cart if we have made no quantity changes and prevent adding to cart where quantity is 0
+  <LoadingButton disabled={item?.quantity === quantity || !item && quantity === 0 } 
