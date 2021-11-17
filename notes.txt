@@ -644,3 +644,6 @@ json2ts.com create interface paste above in generates
  in App.tsx
  
  Implemented Add Remove Delete buttons and operations
+ 
+ // remember ?? trick to handle undefined values as left most argument will be 0
+ const subtotal = basket?.items.reduce((sum, item)=> sum + (item.price * item.quantity),0) ?? 0; <-- if undefined then right arg
