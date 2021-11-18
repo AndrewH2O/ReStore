@@ -7,6 +7,8 @@ import agent from "../../app/api/agent";
 import { Product } from "../../app/models/product";
 import { useStoreContext } from "../../app/context/StoreContext";
 import { currencyFormat } from "../../app/util/util";
+import { useAppDispatch } from "../../app/store/configureStore";
+import { setBasket } from "../basket/basketSlice";
 
 interface Props {
   product: Product;
@@ -15,14 +17,14 @@ interface Props {
 
 export default function ProductCard({ product }: Props) {
   const [loading, setLoading] = useState(false);  
-  const { setBasket } = useStoreContext();
+  const dispatch = useAppDispatch();
   
   function handleAddItem(productId:number){ // quantity has a default value of 1 and is optional
       setLoading(true);
       console.log("adding item.... ",productId);
       // update basket based on what we gaet back from the api
       agent.Basket.addItem(productId) 
-          .then(basket => setBasket(basket))
+          .then(basket => dispatch(setBasket(basket)))
           .catch(error => console.log(error))
           .finally(()=>setLoading(false));
   }

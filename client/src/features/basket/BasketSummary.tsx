@@ -1,10 +1,11 @@
 import { TableContainer, Paper, Table, TableBody, TableRow, TableCell, Typography } from "@mui/material";
 import { useStoreContext } from "../../app/context/StoreContext";
+import { useAppSelector } from "../../app/store/configureStore";
 import { currencyFormat } from "../../app/util/util";
 
 
 export default function BasketSummary() {
-    const { basket } = useStoreContext();
+    const { basket } = useAppSelector(state => state.basket)
     
     // 2nd param of reduce callback 0 is the initial value
     // remember ?? trick to handle undefined values as left most argument will be 0
