@@ -746,4 +746,46 @@ json2ts.com create interface paste above in generates
   destructure data and title from state of type CounterState
   const {data, title} = useSelector((state: CounterState) => state)
   
+  Actions
+  -------
+  in counterReducer define types as
+  export const INCREMENT_COUNTER = "INCREMENT_COUNTER";
+  export const DECREMENT_COUNTER = "DECREMENT_COUNTER";
   
+  these are then dispatched to the reducer and using a switch statement new state is created
+  (as we are not allowed to mutate state) and the respective properties are updated on the new copy
+  as seen in the switch statement below
+  
+  export default function counterReducer(state = initialState, action: any){
+      switch (action.type) {
+          case INCREMENT_COUNTER:
+              return {
+                  // cannot mutate state e.g. state.data + 1 
+                  // instead create a new copy
+                  // use spread operator to copy the override data with new value
+                  ...state,
+                  data: state.data + 1
+              }
+              break;
+          case DECREMENT_COUNTER:
+              return {
+                  ...state,
+                  data: state.data - 1
+              }
+              break;
+          default:
+              return state; // always return state
+      }
+      
+      
+How are the actions dispatched? 
+there is a dispatcher that react-redux provides see ContactPage
+      
+      const dispatch = useDispatch();
+      
+      
+      then we drive the action from buttons + or -
+      dispatch(pass in action type)
+      
+      <Button onClick={()=>dispatch({type: DECREMENT_COUNTER })}  variant='contained' color='error'>Decrement</Button>
+      <Button onClick={()=>dispatch({type: INCREMENT_COUNTER })} variant='contained' color='primary'>Increment</Button>
