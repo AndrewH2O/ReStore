@@ -1,12 +1,11 @@
 import {Add, Delete, Remove} from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 import {
-    Box, Button, Grid, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography
+    Box, Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography
 } from "@mui/material";
 import {useState} from "react";
 import { Link } from "react-router-dom";
 import agent from "../../app/api/agent";
-import {useStoreContext} from "../../app/context/StoreContext";
 import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
 import { currencyFormat } from "../../app/util/util";
 import {removeItem, setBasket } from "./basketSlice";

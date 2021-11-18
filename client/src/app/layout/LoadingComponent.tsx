@@ -1,9 +1,7 @@
 import { Backdrop, Box, CircularProgress, Typography} from "@mui/material";
 
 // optional note ?
-interface Props {
-    message?:string;
-}
+
 
 export default function Loadingcomponent({message='Loading...'}) {
     // material ui progress indicators

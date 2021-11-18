@@ -6,7 +6,6 @@ import {
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import agent from "../../app/api/agent";
-import {useStoreContext} from "../../app/context/StoreContext";
 import NotFound from "../../app/errors/NotFound";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import {Product} from "../../app/models/product";
@@ -115,7 +114,7 @@ export default function ProductDetails() {
                             variant='outlined' type='number' label='Quantity in Cart' fullWidth value={quantity}/>
                     </Grid>
                     <Grid item xs={6}>
-                        <LoadingButton disabled={item?.quantity === quantity || !item && quantity === 0 }
+                        <LoadingButton disabled={(item?.quantity === quantity) || (!item && quantity === 0) }
                                        loading={submitting}
                                        onClick={handleUpdateCart}
                                        sx={{height: '55px'}} color='primary' size='large' variant='contained' fullWidth>
