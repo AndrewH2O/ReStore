@@ -922,4 +922,15 @@ and contact page becomes
     <Button onClick={()=>dispatch(increment(1))} variant='contained' color='primary'>Increment</Button>    
     
 which is all a little bit simpler    
-       
+    
+    
+Implement the basketSlice and add it to the configureStore    
+in app stop using useStoreContext 
+replace 
+    use const {setBasket} = useStoreContext();
+with 
+    const dispatch = useAppDispatch();
+    
+and in the agent call to get the basket use the dispatcher to get the basket
+    agent.Basket.get()
+                    .then(basket => dispatch(setBasket(basket)))           
