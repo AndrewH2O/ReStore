@@ -670,3 +670,80 @@ json2ts.com create interface paste above in generates
   
   add logic to prevent updating cart if we have made no quantity changes and prevent adding to cart where quantity is 0
   <LoadingButton disabled={item?.quantity === quantity || !item && quantity === 0 } 
+  
+  ... last commit fba78d3
+  
+  
+  Redux and React-Redux
+  ---------------------
+  redux.js.org/style-guide
+  Redux Toolkit and Redux Dev tools
+  React-Redux provider
+  
+  starting and ending with components flow is one way:
+  
+  Components -> Actions ->  Reducers  ->  *** Store *** -> Provider -> App  -> Components
+  
+  example reducers - one for catalog, one for basket
+  a reducer is a function, it takes the current state and an action and returns a new state result
+  (state, action) => newState
+  
+  best practices
+  * can't mutate state
+  * reducers must be side effect free so pure functions
+  * do not have non serializable values in state or actions (so not class instances or functions inside state)
+  * 1 store per app
+  
+  Redux Toolkit simplifies working with redux and its opinionated. 
+  Good defaults and redux add-on. Less boiler plate
+  
+  npm install redux react-redux
+  
+  Use the aboutPage.tsx as a playground to explore redux
+  
+  actions are dispatched to reducers to change the store state
+  
+  example of reducer and provider
+  
+  define configureStore that accepts our reducer 
+      export function configureStore() {
+          return createStore(counterReducer); // createStore part of redux
+      }
+  
+  counterReducer defined as 
+  
+      // basic example
+      export interface CounterState {
+          data : number;
+          title: string;
+      }
+      
+      const initialState:CounterState = {
+          data: 42,
+          title: 'foo'
+      }
+      
+      // actions are dispatched to reducers to change their state
+      export default function counterReducer(state = initialState, action: any){
+          return state;
+      }
+  ---
+  
+  Usage:
+  in index.tsx 
+  const store = configureStore();
+  
+  // provide rect with access
+                <Provider store={store}>
+                    <App />
+                </Provider>
+                
+
+  
+  console.log(store.getState());
+  
+  in contactPage.tsx
+  destructure data and title from state of type CounterState
+  const {data, title} = useSelector((state: CounterState) => state)
+  
+  
