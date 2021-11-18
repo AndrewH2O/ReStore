@@ -840,4 +840,86 @@ Then in contact page we call the functions instead
     
     <Button onClick={()=>dispatch(increment(6))} variant='contained' color='secondary'>Increment by 6</Button>
     
+
+Redux Toolkit 
+-------------
+does away with a lot of the boiler plate helps with following best practices
+
+npm install @reduxjs/toolkit
+
+simplifies things as now reducer called counterSlice is 
+    import { createSlice } from "@reduxjs/toolkit"
     
+    
+    export interface CounterState {
+        data : number;
+        title: string;
+    }
+    
+    const initialState:CounterState = {
+        data: 42,
+        title: 'redux counter example with the redux toolkit'
+    }
+    
+    // action types and action creators are created for us 
+    export const counterSlice = createSlice({
+        name: 'counter',
+        initialState,
+        reducers: {
+            increment: (state, action) => {
+                // What? we are mutating state but inner workings of toolkit
+                // use immer where immuatble states are created from mutable ones
+                // so its ok
+                state.data += action.payload;
+            },
+            decrement: (state, action) => {
+                state.data -= action.payload;
+            }
+        }
+    })
+    
+    export const  { increment, decrement } = counterSlice.actions;
+    
+configure store along with convenience custom hooks
+
+    import { configureStore } from "@reduxjs/toolkit";
+    import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+    import { counterSlice } from "../../features/contact/counterSlice";
+    
+    export const store = configureStore({
+        reducer: {
+            counter: counterSlice.reducer
+        }
+    })
+    
+    // for ease of use
+    // avoids in contact page having to specify CounterState
+    export type RootState = ReturnType<typeof store.getState>;
+    export type AppDispatch = typeof store.dispatch;
+    
+    // custom hooks
+    export const useAppDispatch = () => useDispatch<AppDispatch>(); // typed to store dispatch
+    export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector; // store state
+    
+All we need in the index.tsx is 
+
+import { store } from './app/store/configureStore';
+    <StoreProvider>
+        <Provider store={store}>
+              <App />
+        </Provider>
+    </StoreProvider>    
+    
+    
+and contact page becomes
+    import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
+    import { decrement, increment } from "./counterSlice";
+
+    const dispatch = useAppDispatch();
+    const {data, title} = useAppSelector(state => state.counter); 
+    
+    <Button onClick={()=>dispatch(decrement(1))}  variant='contained' color='error'>Decrement</Button>
+    <Button onClick={()=>dispatch(increment(1))} variant='contained' color='primary'>Increment</Button>    
+    
+which is all a little bit simpler    
+       
