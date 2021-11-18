@@ -14,6 +14,20 @@ const initialState:CounterState = {
     title: 'redux counter example'
 }
 
+export function increment(amount = 1) {
+    return {
+        type: INCREMENT_COUNTER,
+        payload: amount // if change by something other than 1
+    }
+}
+
+export function decrement(amount = 1) {
+    return {
+        type: DECREMENT_COUNTER,
+        payload: amount // if change by something other than 1
+    }
+}
+
 // actions are dispatched to reducers to change their state
 // these are the actions and how they create state changes from copying previous state 
 // then updating the properties that change
@@ -25,13 +39,13 @@ export default function counterReducer(state = initialState, action: any){
                 // instead create a new copy
                 // use spread operator to copy the override data with new value
                 ...state,
-                data: state.data + 1
+                data: state.data + action.payload
             }
             break;
         case DECREMENT_COUNTER:
             return {
                 ...state,
-                data: state.data - 1
+                data: state.data - action.payload
             }
             break;
         default:

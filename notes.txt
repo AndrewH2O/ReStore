@@ -789,3 +789,55 @@ there is a dispatcher that react-redux provides see ContactPage
       
       <Button onClick={()=>dispatch({type: DECREMENT_COUNTER })}  variant='contained' color='error'>Decrement</Button>
       <Button onClick={()=>dispatch({type: INCREMENT_COUNTER })} variant='contained' color='primary'>Increment</Button>
+      
+Action creators 
+used in reducer or in separate files, these are functions that return the action types     
+they can be used to pass a payload so we can + or subtract by diff amounts
+
+functions in the reducer are defined as 
+    export function increment(amount = 1) {
+        return {
+            type: INCREMENT_COUNTER,
+            payload: amount // if change by something other than 1
+        }
+    }
+    
+    export function decrement(amount = 1) {
+        return {
+            type: DECREMENT_COUNTER,
+            payload: amount // if change by something other than 1
+        }
+    } 
+    
+Then the reducer changes to use action payload instead of 1
+    export default function counterReducer(state = initialState, action: any){
+        switch (action.type) { <------------ action type 
+            case INCREMENT_COUNTER:
+                return {
+                    ...state,
+                    data: state.data + action.payload   <--------------action payload
+                }
+                break;
+            case DECREMENT_COUNTER:
+                return {
+                    ...state,
+                    data: state.data - action.payload
+                }
+                break;
+            default:
+                return state; // always return state
+        }
+    
+    
+Then in contact page we call the functions instead
+    
+    use default payload of 1
+    
+    <Button onClick={()=>dispatch(decrement())}  variant='contained' color='error'>Decrement</Button>
+    <Button onClick={()=>dispatch(increment())} variant='contained' color='primary'>Increment</Button>
+    
+    pass in payload other than default
+    
+    <Button onClick={()=>dispatch(increment(6))} variant='contained' color='secondary'>Increment by 6</Button>
+    
+    
