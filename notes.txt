@@ -934,3 +934,19 @@ with
 and in the agent call to get the basket use the dispatcher to get the basket
     agent.Basket.get()
                     .then(basket => dispatch(setBasket(basket)))           
+
+Async
+-----
+Redux way - redux-thunk returns a fn from a fn
+But instead use redux toolkit CreateAsyncThunk
+
+centralise code where we get the basket from the agent
+see basketSlice where we make use of createAsyncThunk
+
+extraReducers using the builder package are added to the project to set state and actions
+
+Usage:...
+In productCard remove handleAddItem and make use of useAppSelector to set a status 
+property based on basket status. Updated LoadingButton on product card.
+
+in redux tools in browser you can see the payload that shows all basket items when a product is added 
