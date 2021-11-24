@@ -950,3 +950,26 @@ In productCard remove handleAddItem and make use of useAppSelector to set a stat
 property based on basket status. Updated LoadingButton on product card.
 
 in redux tools in browser you can see the payload that shows all basket items when a product is added 
+
+Entity Adapters
+---------------
+Aim is to store data in a catalogSlice 
+Prevent products loading each time
+Entity Adapters - Redux Toolkit managing normalised data organise data in state as ids as keys and entity
+as values createEntityAdapter - see catalogSlice
+
+Add catalog slice to configureStore list of reducers
+Looking at app in chrome with redux tools on the catalog page the @@init state is 
+
+catalog
+    ids: []    *
+    entities: {}   * 
+    productsLoaded:false
+    status:"idle"
+    
+* given to use by productsAdapter    
+
+temporarily we get products from store dispatch see index page
+
+looking at chrome again we can see fetchProductsAsync pending and fulfilled
+and the state shows our entities loaded and an array of ids

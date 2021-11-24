@@ -8,11 +8,13 @@ import './app/layout/styles.css';
 //import { configureStore } from './app/store/configureStore';
 import {Provider} from 'react-redux';
 import {store} from './app/store/configureStore';
+import { fetchProductsAsync } from './features/catalog/catalogSlice';
 
 //const store = configureStore();
 
 export const history = createBrowserHistory();
 
+store.dispatch(fetchProductsAsync());
 
 ReactDOM.render(
     <React.StrictMode>
