@@ -986,3 +986,5 @@ Fixing the issues - catalogSlice
 AsyncThunks are outer functions that contain an inner function, we catch errors in inner but not the outer.
 Added error handling using thunkAPI
 Fixed productDetails to get loading working when updating quantity
+
+Working on basket error handling
