@@ -5,35 +5,33 @@ import {
 
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import agent from "../../app/api/agent";
 import NotFound from "../../app/errors/NotFound";
 import LoadingComponent from "../../app/layout/LoadingComponent";
-import {Product} from "../../app/models/product";
 import {useAppDispatch, useAppSelector } from "../../app/store/configureStore";
 import {addBasketItemAsync, removeBasketItemAsync } from "../basket/basketSlice";
+import {fetchProductAsync, productSelectors } from "./catalogSlice";
 
 
 export default function ProductDetails() {
     const {basket, status} = useAppSelector(state => state.basket);
+    const {id} = useParams<{ id: string }>();
+    const product = useAppSelector(state => productSelectors.selectById(state, id));
+    const {status: productStatus} = useAppSelector(state => state.catalog);
     const dispatch = useAppDispatch();
     //debugger;
-    const {id} = useParams<{ id: string }>();
+    
 
     // init value is null and type is null rather than undefined
-    const [product, setProduct] = useState<Product | null>(null);
-    const [loading, setLoading] = useState(true);
+    
+    
     const [quantity, setQuantity] = useState(0);
     
     const item = basket?.items.find(i => i.productId === product?.id);
 
     useEffect(() => {
         if (item) setQuantity(item.quantity);
-
-        agent.Catalog.details(parseInt(id))
-            .then(response => setProduct(response))
-            .catch(error => console.log(error))
-            .finally(() => setLoading(false))
-    }, [id, item])      // dependency id as we sprecify a value then if that changes useEffect triggered again
+        if(!product) dispatch(fetchProductAsync(parseInt(id)));
+    }, [id, item, dispatch, product])      // dependency id as we sprecify a value then if that changes useEffect triggered again
 
     // make react aware of input TextField changes
     function handleInputChanged(event: any) {
@@ -59,7 +57,7 @@ export default function ProductDetails() {
     }
 
 
-    if (loading) return <LoadingComponent message='Loading product...'/>
+    if (productStatus.includes('pending')) return <LoadingComponent message='Loading product...'/>
 
     if (!product) return <NotFound/>
 

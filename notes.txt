@@ -976,3 +976,5 @@ and the state shows our entities loaded and an array of ids
 
 work with selectors to work with products use these in Catalog we can remove our local state
 and ensure products are loaded once
+
+Do the same for productDetails load once.
