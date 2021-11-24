@@ -973,3 +973,6 @@ temporarily we get products from store dispatch see index page
 
 looking at chrome again we can see fetchProductsAsync pending and fulfilled
 and the state shows our entities loaded and an array of ids
+
+work with selectors to work with products use these in Catalog we can remove our local state
+and ensure products are loaded once
