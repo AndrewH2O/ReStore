@@ -978,3 +978,11 @@ work with selectors to work with products use these in Catalog we can remove our
 and ensure products are loaded once
 
 Do the same for productDetails load once.
+
+Errors now that we are using async thunks, currently trying to access a non 
+existent productId crashes the app. In production mode the loading screen will permanently display
+(so no error message is visible to end user).
+Fixing the issues - catalogSlice
+AsyncThunks are outer functions that contain an inner function, we catch errors in inner but not the outer.
+Added error handling using thunkAPI
+Fixed productDetails to get loading working when updating quantity
