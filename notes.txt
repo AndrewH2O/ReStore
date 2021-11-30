@@ -1006,3 +1006,7 @@ GET "http://localhost:5000/api/Products?orderBy=priceDesc"  - price high to low
 
 we could organise code in DbContext (that's a combination of unit of work and repository)
 we use extension methods ProductsExtension to extend queryable
+
+searching
+same idea GET "http://localhost:5000/api/Products?searchTerm=red"
+GET "http://localhost:5000/api/Products?orderBy=price&searchTerm=blue"
