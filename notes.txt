@@ -1062,3 +1062,6 @@ Also CORs custom response header
          content-type: application/json; charset=utf-8 
          date: Tue30 Nov 2021 17:12:11 GMT 
          pagination: {"currentPage":1,"totalPages":3,"pageSize":6,"totalCount":18} <----- camelCase
+         
+
+Return list types and brands added getFilters to products Controller         

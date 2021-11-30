@@ -52,5 +52,14 @@ namespace API.Controllers
             if (product == null) return NotFound();
             return product;
         }
+        
+        // don't get type safety with response when returning IActionResult doesn't matter as get anon object
+        [HttpGet("filters")]
+        public async Task<IActionResult> GetFilters()
+        {
+            var brands = await _context.Products.Select(p => p.Brand).Distinct().ToListAsync();
+            var types = await _context.Products.Select(p => p.Type).Distinct().ToListAsync();
+            return Ok(new { brands, types });
+        }
     }
 }
