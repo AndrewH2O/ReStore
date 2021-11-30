@@ -27,6 +27,7 @@ namespace API
             
             
             var context = scope.ServiceProvider.GetRequiredService<StoreContext>();
+            
             // we don't have exception class yet so add logger
             var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 

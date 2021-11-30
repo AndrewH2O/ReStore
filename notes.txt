@@ -988,3 +988,21 @@ Added error handling using thunkAPI
 Fixed productDetails to get loading working when updating quantity
 
 Working on basket error handling
+
+
+Pagination sorting filtering
+----------------------------
+
+parameters passed in query string
+localhost:5000/api/products?pageNumber=1&pageSize=5
+defer execution of an expression using an expression tree IQueryable<T>
+orderBy where take skip
+
+sorting 
+pass in an orderBy parameter to ProductsController GetProducts
+GET "http://localhost:5000/api/Products - order by name
+GET "http://localhost:5000/api/Products?orderBy=price"      - price low to high
+GET "http://localhost:5000/api/Products?orderBy=priceDesc"  - price high to low
+
+we could organise code in DbContext (that's a combination of unit of work and repository)
+we use extension methods ProductsExtension to extend queryable
