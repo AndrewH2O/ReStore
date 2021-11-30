@@ -36,9 +36,9 @@ namespace API.Controllers
                 await PagedList<Product>.ToPagedList(query, 
                     productParams.pageNumber, productParams.PageSize);
 
-            // send the paging info back to the client
-            // MetaData is created in the productsList
-            Response.Headers.Add("Pagination", JsonSerializer.Serialize(products.MetaData));
+            // add camel case JSON formatting and page metadata
+            Response.AddPaginationHeader(products.MetaData);
+            
             return products;
 
         }

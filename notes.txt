@@ -1054,5 +1054,11 @@ GET "http://localhost:5000/api/Products?Brands=redis" <--- should only be 1 resu
          date: Tue30 Nov 2021 16:56:54 GMT 
          pagination: {"CurrentPage":1,"TotalPages":1,"PageSize":6,"TotalCount":1}        
         
-   
         
+Need JSON in camelCase currently its in title case
+Also CORs custom response header             
+   Response header:
+        access-control-expose-headers: Pagination  <------------------- Cors
+         content-type: application/json; charset=utf-8 
+         date: Tue30 Nov 2021 17:12:11 GMT 
+         pagination: {"currentPage":1,"totalPages":3,"pageSize":6,"totalCount":18} <----- camelCase
