@@ -8,10 +8,11 @@ interface Props {
 
 export default function ProductList({ products }: Props) {
 
+  // each item takes up 4 spaces only have 3 items accross
   return (
     <Grid container spacing={4}>
       {products.map((product) =>
-        <Grid item xs={3} key={product.id}>
+        <Grid item xs={4} key={product.id}>
           <ProductCard  product={product} />
         </Grid>
       )}
