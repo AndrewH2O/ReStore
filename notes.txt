@@ -1018,3 +1018,41 @@ GET "http://localhost:5000/api/Products?brands=redis&types=hats" // nothing back
 
 query both hats or boots  hats,boots
 GET "http://localhost:5000/api/Products?types=hats%2Cboots"
+
+pagination
+pageNumber and size of page
+added Request helpers and grouped all product params in a class
+created a MetaData class to return to client with page details
+Return a PageList rather than a list
+Extend List<Page>
+[FromQuery] is needed as we are passing in to the action method an object and without this
+Swagger assumes that the object will be passed in the body as a json object which is not we we want
+
+http://localhost:5000/api/Products
+Response header: 
+        content-type: application/json; charset=utf-8 
+        date: Tue30 Nov 2021 16:51:53 GMT 
+        pagination: {"CurrentPage":1,"TotalPages":3,"PageSize":6,"TotalCount":18} 
+        
+        3 pages as we have 18 products
+
+default page size is 6
+GET "http://localhost:5000/api/Products?pageNumber=2" <------select page 2
+Response header: 
+        content-type: application/json; charset=utf-8 
+        date: Tue30 Nov 2021 16:53:36 GMT 
+        pagination: {"CurrentPage":2,"TotalPages":3,"PageSize":6,"TotalCount":18} 
+
+GET "http://localhost:5000/api/Products?pageNumber=2&PageSize=4"      <----- page 2 with page size of 4  
+Response header: 
+        content-type: application/json; charset=utf-8 
+         date: Tue30 Nov 2021 16:54:36 GMT 
+         pagination: {"CurrentPage":2,"TotalPages":5,"PageSize":4,"TotalCount":18} 
+        
+GET "http://localhost:5000/api/Products?Brands=redis" <--- should only be 1 result
+        content-type: application/json; charset=utf-8 
+         date: Tue30 Nov 2021 16:56:54 GMT 
+         pagination: {"CurrentPage":1,"TotalPages":1,"PageSize":6,"TotalCount":1}        
+        
+   
+        
