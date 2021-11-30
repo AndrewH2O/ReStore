@@ -1010,3 +1010,11 @@ we use extension methods ProductsExtension to extend queryable
 searching
 same idea GET "http://localhost:5000/api/Products?searchTerm=red"
 GET "http://localhost:5000/api/Products?orderBy=price&searchTerm=blue"
+
+filtering
+GET "http://localhost:5000/api/Products?types=hats"
+GET "http://localhost:5000/api/Products?brands=react&types=hats"
+GET "http://localhost:5000/api/Products?brands=redis&types=hats" // nothing back  
+
+query both hats or boots  hats,boots
+GET "http://localhost:5000/api/Products?types=hats%2Cboots"
