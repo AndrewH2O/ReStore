@@ -18,7 +18,7 @@ export default function Catalog() {
     const {productsLoaded, status, filtersLoaded, brands, types} = useAppSelector(state => state.catalog);
     const dispatch = useAppDispatch();
     
-    
+    // each time productsLoaded changes then useEffect is run so for each page load it will be run
     useEffect(() => {
         if(!productsLoaded) dispatch(fetchProductsAsync())
     }, [dispatch, productsLoaded]) 

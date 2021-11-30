@@ -1066,9 +1066,14 @@ Also CORs custom response header
 
 Return list types and brands added getFilters to products Controller   
 
+Client 
+
 Getting filter lists from API and storing in redux
 Update client to handle fetchFilters  update agent, catalogSlice and Catalog    
 check redux tools to make sure we are not duplicating calls (added another useEffect to Catalog page to avoid this) 
 and check network tab check headers
 Pagination: {"currentPage":1,"totalPages":3,"pageSize":6,"totalCount":18}
 Access-Control-Expense-Headers:Pagination     ----cors
+
+
+sending product params up to api - create state inside redux store
