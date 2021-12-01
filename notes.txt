@@ -1077,3 +1077,15 @@ Access-Control-Expense-Headers:Pagination     ----cors
 
 
 sending product params up to api - create state inside redux store
+axios get request to work with params
+
+In the Agent client making request to get products needs to send up the query string with search sort filtering paging etc
+currently we have Catalog list: ()=>requests.get('products') and want to avoid adding each param manually:
+1) add params to get request
+    get: (url:string, params?:URLSearchParams) => axios.get(url, {params}).then(responseBody),
+2) use the params in Catalog get request
+    list: (params: URLSearchParams)=>requests.get('products', params),
+
+URLSearchParams is a utility method available to us when working with the web https://developer.mozilla.org/en-US/docs/Web/API
+Update CatalogSlice to work with params
+Check in chrome network tools http://localhost:5000/api/products?pageNumber=1&pageSize=6&orderBy=name
