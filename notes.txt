@@ -1089,3 +1089,12 @@ currently we have Catalog list: ()=>requests.get('products') and want to avoid a
 URLSearchParams is a utility method available to us when working with the web https://developer.mozilla.org/en-US/docs/Web/API
 Update CatalogSlice to work with params
 Check in chrome network tools http://localhost:5000/api/products?pageNumber=1&pageSize=6&orderBy=name
+
+Search
+added new component TextField on change to set the productParams with searchTerm which are store in the state
+when this event fires we dispatch to catalogSlice and call setProductParams where state productsLoaded = false
+and state.productParams we pass  action.payload that has the searchTerm which will overwrite that 
+part of state.productParams with searchTerm. As productsLoaded changes as its a dependency of useEffect
+then useEffect runs again this will fetch productsAsync this will make a request to our api which now includes
+search.
+Add debounce function to slow down responsiveness of search box 
