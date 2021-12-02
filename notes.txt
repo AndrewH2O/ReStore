@@ -1111,3 +1111,34 @@ Added generic CheckBoxButtons component
 http://localhost:5000/api/products?pageNumber=1&pageSize=6&orderBy=name&brands=Angular&types=Boards
 http://localhost:5000/api/products?pageNumber=1&pageSize=6&orderBy=name&brands=Angular,NetCore&types=Boards
 http://localhost:5000/api/products?pageNumber=1&pageSize=6&orderBy=name&brands=Angular&types=Boards,Boots
+
+
+Pagination
+need to look at the response headers:
+    Access-Control-Expose-Headers : Pagination
+    Pagination:{"currentPage":1,"totalPages":3,"pageSize":6,"totalCount":18}
+    new class PaginatedResponse
+    
+    {
+        "items": [
+            {
+                "id": 18,
+                "name": "Angular Blue Boots",
+                "description": "Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.",
+                "price": 18000,
+                "pictureUrl": "/images/products/boot-ang1.png",
+                "type": "Boots",
+                "brand": "Angular",
+                "quantityInStock": 100
+            },
+            ....etc
+        ],
+        "metaData": {
+            "currentPage": 1,
+            "totalPages": 3,
+            "pageSize": 6,
+            "totalCount": 18
+        }
+    }
+    
+    look in chrome redux tooling catalog/setMetaData under catalog the metaData is there for pagination

@@ -1,6 +1,7 @@
 import axios, {AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { history } from "../.."
+import { PaginatedResponse } from "../models/pagination";
 
 // simulate a delay, js async using a promise
 const sleep =() => new Promise(resolve => setTimeout(resolve, 500));
@@ -12,9 +13,16 @@ axios.defaults.withCredentials = true;
 // we get response data helper
 const responseBody = (response: AxiosResponse) => response.data;
 
-
+// all api responses intercepted here
+// response header is also available
 axios.interceptors.response.use(async response => {
     await sleep();
+    const pagination = response.headers['pagination']; // needs to be l.c. even though in browser its u.c.
+    if(pagination){
+        response.data = new PaginatedResponse(response.data, JSON.parse(pagination));
+        console.log(response);
+        return response;
+    }
     return response;
 }, (error: AxiosError) => {
     // destructure some props from error response
