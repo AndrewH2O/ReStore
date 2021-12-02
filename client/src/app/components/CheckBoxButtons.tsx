@@ -19,6 +19,7 @@ export default function CheckBoxButtons({items, checked, onChange}:Props) {
         else 
             newChecked = checkedItems.filter(item => item !== value); // uncheck by getting all items other than current value
         
+        setCheckedItems(newChecked);
         onChange(newChecked); // return list of items to parent
     }
     

@@ -3,7 +3,7 @@ import {useEffect} from "react";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import {useAppDispatch, useAppSelector } from "../../app/store/configureStore";
 import {fetchFilters, fetchProductsAsync, productSelectors, setPageNumber, setProductParams } from "./catalogSlice";
-import {Box, Grid, Pagination, Paper, Typography } from "@mui/material";
+import {Grid, Paper} from "@mui/material";
 import ProductSearch from "./ProductSearch";
 import RadioButtonGroup from "../../app/components/RadioButtonGroup";
 import CheckBoxButtons from "../../app/components/CheckBoxButtons";
@@ -19,7 +19,7 @@ const sortOptions = [
 // instead of props destructure Props into {products, addProduct}
 export default function Catalog() {
     const products = useAppSelector(productSelectors.selectAll);
-    const {productsLoaded, status, filtersLoaded, brands, types, productParams, metaData} = useAppSelector(state => state.catalog);
+    const {productsLoaded, filtersLoaded, brands, types, productParams, metaData} = useAppSelector(state => state.catalog);
     const dispatch = useAppDispatch();
     
     // each time productsLoaded changes then useEffect is run so for each page load it will be run
@@ -36,7 +36,7 @@ export default function Catalog() {
     },[dispatch, filtersLoaded])
     
     // metaData cannot be null when passed to AppPagination below
-    if(status.includes('pending') || !metaData) return <LoadingComponent message='loading products...'/>
+    if(!filtersLoaded) return <LoadingComponent message='loading products...'/>
     
     return (//Fragment shorthand <> 
         <Grid container columnSpacing={4}>
@@ -71,10 +71,11 @@ export default function Catalog() {
             </Grid>   
             <Grid item xs={3} />
             <Grid item xs={9} sx={{mb:2}}>
-                <AppPagination 
+                {metaData && 
+                    <AppPagination 
                     metaData={metaData}
                     onPageChange={(page:number)=>dispatch(setPageNumber({pageNumber: page}))}
-                />
+                />}
             </Grid>
         </Grid>
     )

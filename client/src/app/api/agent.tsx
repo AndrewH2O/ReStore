@@ -20,7 +20,6 @@ axios.interceptors.response.use(async response => {
     const pagination = response.headers['pagination']; // needs to be l.c. even though in browser its u.c.
     if(pagination){
         response.data = new PaginatedResponse(response.data, JSON.parse(pagination));
-        console.log(response);
         return response;
     }
     return response;

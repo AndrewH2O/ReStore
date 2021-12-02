@@ -1148,4 +1148,6 @@ Grid spacing look at the containing object change spacing to rowSpacing.
 
 Issue with paging (currentPage is wrong when filtering or searching) - when selecting products reset page to 1 in the reducer in catalogSlice 
 then add another reducer that doesn't reset the page that we call when we alter the paging
+
+Clean up loading when we click on filters - mui skeleton variants to display just a skeleton of what we are going to load
       
