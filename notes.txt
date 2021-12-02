@@ -1151,3 +1151,52 @@ then add another reducer that doesn't reset the page that we call when we alter 
 
 Clean up loading when we click on filters - mui skeleton variants to display just a skeleton of what we are going to load
       
+      
+Identity
+--------   
+ASP.Net identity, 
+EF with Identity, 
+JWT, 
+Using forms in React, 
+validating inputs, 
+app init, 
+tfr anon basket to a logged in user
+
+Membership sys for .net 
+has pw hashing, one way using hashing function
+pw validation, 
+user storage, 
+claims management e.g user says they have a certain name or in a role   
+
+Also can use external providers - not used here
+
+nuget 
+    microsoft.aspnetcore.authentication.jwtbearer
+    microsoft.aspnetcore.identity.entityframeworkcore
+
+ add user entity class derives from IdentityUser
+ 
+ instead of dbContext derive from IdentityDbContext   
+   StoreContext: IdentityDbContext<User> 
+   
+ Add onModelCreating for the roles
+ 
+ Startup  
+ 
+ configure services
+ services.AddIdentityCore<User>()
+                 .AddRoles<IdentityRole>()
+                 .AddEntityFrameworkStores<StoreContext>(); // adds all identity tables
+ 
+             services.AddAuthentication();
+             services.AddAuthorization();
+             
+ In StoreContext Add roles, then in DbInitializer add users and roles
+ Update program
+ 
+ Migration 
+    dotnet ef migrations add IdentityAdded
+    
+ migrations builds out tables for use   
+ 
+ check database

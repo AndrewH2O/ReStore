@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
+using API.Entities;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +16,7 @@ namespace API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             
             //CreateHostBuilder(args).Build().Run();
@@ -27,6 +29,7 @@ namespace API
             
             
             var context = scope.ServiceProvider.GetRequiredService<StoreContext>();
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
             
             // we don't have exception class yet so add logger
             var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
@@ -36,15 +39,15 @@ namespace API
                 // applies any outstanding migrations and db updates
                 // does same thing as db command line 
                 // dotnet ef database update
-                context.Database.Migrate();
-                DbInitializer.Initialize(context);
+                await context.Database.MigrateAsync();
+                await DbInitializer.Initialize(context, userManager);
             }
             catch (Exception ex)
             {
                 logger.LogError(ex, "problem migrating data");
             }
             
-            host.Run();
+            await host.RunAsync();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
