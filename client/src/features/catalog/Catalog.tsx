@@ -2,11 +2,12 @@ import ProductList from "./ProductList";
 import {useEffect} from "react";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import {useAppDispatch, useAppSelector } from "../../app/store/configureStore";
-import {fetchFilters, fetchProductsAsync, productSelectors, setProductParams } from "./catalogSlice";
+import {fetchFilters, fetchProductsAsync, productSelectors, setPageNumber, setProductParams } from "./catalogSlice";
 import {Box, Grid, Pagination, Paper, Typography } from "@mui/material";
 import ProductSearch from "./ProductSearch";
 import RadioButtonGroup from "../../app/components/RadioButtonGroup";
 import CheckBoxButtons from "../../app/components/CheckBoxButtons";
+import AppPagination from "../../app/components/AppPagination";
 
 // radio buttons value match our api params
 const sortOptions = [
@@ -18,7 +19,7 @@ const sortOptions = [
 // instead of props destructure Props into {products, addProduct}
 export default function Catalog() {
     const products = useAppSelector(productSelectors.selectAll);
-    const {productsLoaded, status, filtersLoaded, brands, types, productParams} = useAppSelector(state => state.catalog);
+    const {productsLoaded, status, filtersLoaded, brands, types, productParams, metaData} = useAppSelector(state => state.catalog);
     const dispatch = useAppDispatch();
     
     // each time productsLoaded changes then useEffect is run so for each page load it will be run
@@ -34,10 +35,11 @@ export default function Catalog() {
         if(!filtersLoaded) dispatch(fetchFilters())
     },[dispatch, filtersLoaded])
     
-    if(status.includes('pending')) return <LoadingComponent message='loading products...'/>
+    // metaData cannot be null when passed to AppPagination below
+    if(status.includes('pending') || !metaData) return <LoadingComponent message='loading products...'/>
     
     return (//Fragment shorthand <> 
-        <Grid container spacing={4}>
+        <Grid container columnSpacing={4}>
             <Grid item xs={3}>
                 <Paper sx={{mb: 2}}>
                     <ProductSearch />
@@ -64,17 +66,15 @@ export default function Catalog() {
                     />
                 </Paper>
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={9} >
                 <ProductList products={products}/>
             </Grid>   
-            <Grid item xs={3}/>
-            <Grid item xs={9}>
-                <Box display='flex' justifyContent='space-between' alignItems='center'>
-                    <Typography>
-                        Displaying 1-6 of 20 items
-                    </Typography>
-                    <Pagination color='secondary' size='large' count={10} page={2}/>
-                </Box>
+            <Grid item xs={3} />
+            <Grid item xs={9} sx={{mb:2}}>
+                <AppPagination 
+                    metaData={metaData}
+                    onPageChange={(page:number)=>dispatch(setPageNumber({pageNumber: page}))}
+                />
             </Grid>
         </Grid>
     )

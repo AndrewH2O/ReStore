@@ -24,9 +24,9 @@ function getAxiosParams(productParams: ProductParams) {
     params.append('orderBy', productParams.orderBy);
     if(productParams.searchTerm) 
         params.append('searchTerm', productParams.searchTerm);
-    if(productParams.brands) 
+    if(productParams.brands.length > 0) 
         params.append('brands', productParams.brands.toString()); // array to string
-    if(productParams.types)
+    if(productParams.types.length > 0)
         params.append('types', productParams.types.toString()); // array to string
     return params;
 }
@@ -76,7 +76,10 @@ function initParams() {
     return {
         pageNumber: 1,
         pageSize: 6,
-        orderBy: 'name'
+        orderBy: 'name',
+        // add these so that if no brands or types we don't send up 'brands='
+        brands: [],
+        types: []
     }
 }
 
@@ -93,8 +96,13 @@ export const catalogSlice = createSlice({
         metaData: null
     }),
     
+    // reset page numbering back to 1 so that filters and searching works
     reducers: { // change in state will dispatch another async call to fetch more products based on paging
         setProductParams: (state, action) => {
+            state.productsLoaded = false;
+            state.productParams = {...state.productParams, ...action.payload, pageNumber: 1};
+        },
+        setPageNumber: (state,action) => {
             state.productsLoaded = false;
             state.productParams = {...state.productParams, ...action.payload};
         },
@@ -152,4 +160,4 @@ export const catalogSlice = createSlice({
 })
 
 export const productSelectors = productsAdapter.getSelectors((state: RootState)=> state.catalog);
-export const {setProductParams, resetProductParams, setMetaData} = catalogSlice.actions;
+export const {setProductParams, resetProductParams, setMetaData, setPageNumber} = catalogSlice.actions;

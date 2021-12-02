@@ -1142,3 +1142,10 @@ need to look at the response headers:
     }
     
     look in chrome redux tooling catalog/setMetaData under catalog the metaData is there for pagination
+    
+    
+Grid spacing look at the containing object change spacing to rowSpacing.
+
+Issue with paging (currentPage is wrong when filtering or searching) - when selecting products reset page to 1 in the reducer in catalogSlice 
+then add another reducer that doesn't reset the page that we call when we alter the paging
+      
