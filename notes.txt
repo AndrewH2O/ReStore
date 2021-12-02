@@ -1098,3 +1098,10 @@ part of state.productParams with searchTerm. As productsLoaded changes as its a 
 then useEffect runs again this will fetch productsAsync this will make a request to our api which now includes
 search.
 Add debounce function to slow down responsiveness of search box 
+
+Sorting 
+with radio buttons in catalog
+Add more generic component > RadioButtonGroup
+add this to Catalog
+Check the network tab in chrome orderyBy name, price, priceDesc e.g.
+http://localhost:5000/api/products?pageNumber=1&pageSize=6&orderBy=priceDesc

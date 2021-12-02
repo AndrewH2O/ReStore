@@ -2,9 +2,10 @@ import ProductList from "./ProductList";
 import {useEffect} from "react";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import {useAppDispatch, useAppSelector } from "../../app/store/configureStore";
-import {fetchFilters, fetchProductsAsync, productSelectors } from "./catalogSlice";
+import {fetchFilters, fetchProductsAsync, productSelectors, setProductParams } from "./catalogSlice";
 import {Box, Checkbox, FormControl, FormControlLabel, FormGroup, Grid, Pagination, Paper, Radio, RadioGroup, Typography } from "@mui/material";
 import ProductSearch from "./ProductSearch";
+import RadioButtonGroup from "../../app/components/RadioButtonGroup";
 
 // radio buttons value match our api params
 const sortOptions = [
@@ -16,7 +17,7 @@ const sortOptions = [
 // instead of props destructure Props into {products, addProduct}
 export default function Catalog() {
     const products = useAppSelector(productSelectors.selectAll);
-    const {productsLoaded, status, filtersLoaded, brands, types} = useAppSelector(state => state.catalog);
+    const {productsLoaded, status, filtersLoaded, brands, types, productParams} = useAppSelector(state => state.catalog);
     const dispatch = useAppDispatch();
     
     // each time productsLoaded changes then useEffect is run so for each page load it will be run
@@ -41,13 +42,11 @@ export default function Catalog() {
                     <ProductSearch />
                 </Paper>
                 <Paper sx={{mb: 2, p: 2}}>
-                    <FormControl component="fieldset">
-                        <RadioGroup>
-                            {sortOptions.map(({value, label})=>(
-                                <FormControlLabel value={value} control={<Radio />} label={label} key={value}/>
-                            ))}    
-                        </RadioGroup>
-                    </FormControl>
+                    <RadioButtonGroup
+                        selectedValue={productParams.orderBy}
+                        options={sortOptions}
+                        onChange={e=> dispatch(setProductParams({orderBy: e.target.value}))}
+                      />  
                 </Paper>
                 <Paper sx={{mb: 2, p: 2}}>
                     <FormGroup>
