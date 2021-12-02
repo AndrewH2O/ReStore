@@ -1200,3 +1200,7 @@ nuget
  migrations builds out tables for use   
  
  check database
+ 
+ Note createAsync methods in userManager includes saveChangesAsync so we did not have to use it directly
+ 
+ Add Account Controller
