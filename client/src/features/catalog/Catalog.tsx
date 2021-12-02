@@ -6,6 +6,7 @@ import {fetchFilters, fetchProductsAsync, productSelectors, setProductParams } f
 import {Box, Checkbox, FormControl, FormControlLabel, FormGroup, Grid, Pagination, Paper, Radio, RadioGroup, Typography } from "@mui/material";
 import ProductSearch from "./ProductSearch";
 import RadioButtonGroup from "../../app/components/RadioButtonGroup";
+import CheckBoxButtons from "../../app/components/CheckBoxButtons";
 
 // radio buttons value match our api params
 const sortOptions = [
@@ -49,18 +50,18 @@ export default function Catalog() {
                       />  
                 </Paper>
                 <Paper sx={{mb: 2, p: 2}}>
-                    <FormGroup>
-                        {brands.map(brand => (
-                            <FormControlLabel control={<Checkbox/>} label={brand} key={brand} />
-                        ))}
-                    </FormGroup>
+                    <CheckBoxButtons 
+                        items={brands} 
+                        checked={productParams.brands} 
+                        onChange={(items: string[]) => dispatch(setProductParams({brands: items}))}
+                    />
                 </Paper>
                 <Paper sx={{mb: 2, p: 2}}>
-                    <FormGroup>
-                        {types.map(type => (
-                            <FormControlLabel control={<Checkbox/>} label={type} key={type} />
-                        ))}
-                    </FormGroup>
+                    <CheckBoxButtons
+                        items={types}
+                        checked={productParams.types}
+                        onChange={(items: string[]) => dispatch(setProductParams({types: items}))}
+                    />
                 </Paper>
             </Grid>
             <Grid item xs={9}>

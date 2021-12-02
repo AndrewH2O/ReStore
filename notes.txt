@@ -1105,3 +1105,9 @@ Add more generic component > RadioButtonGroup
 add this to Catalog
 Check the network tab in chrome orderyBy name, price, priceDesc e.g.
 http://localhost:5000/api/products?pageNumber=1&pageSize=6&orderBy=priceDesc
+
+Checkbox filtering
+Added generic CheckBoxButtons component
+http://localhost:5000/api/products?pageNumber=1&pageSize=6&orderBy=name&brands=Angular&types=Boards
+http://localhost:5000/api/products?pageNumber=1&pageSize=6&orderBy=name&brands=Angular,NetCore&types=Boards
+http://localhost:5000/api/products?pageNumber=1&pageSize=6&orderBy=name&brands=Angular&types=Boards,Boots
