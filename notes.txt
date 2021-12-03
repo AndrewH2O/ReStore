@@ -1204,3 +1204,44 @@ nuget
  Note createAsync methods in userManager includes saveChangesAsync so we did not have to use it directly
  
  Add Account Controller
+ 
+ 2 example users bob and admin - we have login and register functions
+ test login using swagger https://localhost:5001/swagger/index.html
+ Make the email unique to each user, currently register existing user only checks name and not email
+ add this in configure within startup.
+ 
+    services.AddIdentityCore<User>(opt =>
+                    {
+                        opt.User.RequireUniqueEmail = true;
+                    })
+ 
+ response body 
+    "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+      "title": "One or more validation errors occurred.",
+      "status": 400,
+      "traceId": "00-c3f13f94e1914d42992c267ab1b683c2-59a7429ac3948a47-00",
+      "errors": {
+        "DuplicateEmail": [
+          "Email 'bob@test.com' is already taken." <------------
+        ],
+        "DuplicateUserName": [
+          "Username 'bob' is already taken." <---------------
+        ]
+      }
+      
+      
+      password rules
+      "errors": {
+          "PasswordRequiresDigit": [
+            "Passwords must have at least one digit ('0'-'9')."
+          ],
+          "PasswordRequiresUpper": [
+            "Passwords must have at least one uppercase ('A'-'Z')."
+          ],
+          "PasswordRequiresNonAlphanumeric": [
+            "Passwords must have at least one non alphanumeric character."
+          ]
+        }
+        
+        
+  registered user tom  

@@ -43,7 +43,11 @@ namespace API
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddCors();
-            services.AddIdentityCore<User>()
+            services.AddIdentityCore<User>(opt =>
+                {
+                    // you can add remove say password requirments and many other things 
+                    opt.User.RequireUniqueEmail = true;
+                })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<StoreContext>(); // adds all identity tables
 
