@@ -1245,3 +1245,33 @@ nuget
         
         
   registered user tom  
+  
+  JWT
+  ---
+  token gets sent to api
+    self contained credentials claims and other info
+    server signs jwt and can validate token without visiting the database
+    
+    jwt comprises:
+     header  -- encrypt algo used, type eg JWT
+     payload -- details about user and their claims about what they can do. Also expiry data
+     verify signature -- encrypted bit secret key on server signs token and 
+                            this key is used to decrypt
+     
+     1) send user name pw
+     2) return jwt stored by browser      
+     3) jwt token sent up with all future requests
+     4) server validates against token
+     
+     
+     +advantages
+     self contained no session to manage
+     portable single token can be used on multiple backends
+     mobile friendly - no cookies in mobile apps
+     perf is good as no db request server just needs to access its secret key
+  
+  Creating  a token service   
+  Add a token service class to add the claims and create the token. The private security key must be
+  securely stored on the server. 
+     
+                      
